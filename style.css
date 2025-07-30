@@ -1672,6 +1672,21 @@ section {
     gap: var(--space-32);
   }
   
+  .contact a[href*="linkedin.com"],
+  .contact a[href*="github.com"] {
+    display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: 'Times New Roman', Times, serif;
+  color: #ddd;
+  }
+  
+  .contact a[href*="linkedin.com"]:hover,
+  .contact a[href*="github.com"]:hover {
+    color: #ddd;
+    text-decoration: underline;
+  }
   .contact-form {
     padding: var(--space-24);
   }
