@@ -1,86 +1,190 @@
 /*----------------------------------------------------
   script.js  |  Lavanya R Portfolio
-  Updated for Education & Work Experience Tiles
-  Features: Mobile nav, smooth scroll, scroll-reveal animations,
-           skill-bar fill animation, horizontal scroll navigation,
-           back-to-top button, contact form validation
+  Updated for Education & Work Experience Tiles & Bootstrap-ready
 ----------------------------------------------------*/
 
 document.addEventListener('DOMContentLoaded', () => {
-  /*=========== 1. MOBILE NAV TOGGLE ===========*/
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu   = document.querySelector('.nav-menu');
-
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('nav-menu--open');
-      navToggle.classList.toggle('nav-toggle--open');
-    });
-
-    /*-- Close menu after clicking any nav link (mobile UX) */
-    navMenu.querySelectorAll('a[href^="#"]').forEach(link =>
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('nav-menu--open');
-        navToggle.classList.remove('nav-toggle--open');
-      })
-    );
+  
+  /*=========== 1. DARK/LIGHT MODE TOGGLE ===========*/
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
   }
+  themeToggle?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
 
-  /*=========== 2. SMOOTH SCROLL FOR ANCHORS ===========*/
-  document.querySelectorAll('a[href^="#"]').forEach(anchor =>
+
+  /*=========== 2. SMOOTH SCROLL FOR ANCHORS WITH OFFSET ===========*/
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 64;
+        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - navbarHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
-    })
-  );
+    });
+  });
 
-  /*=========== 3. SCROLL-REVEAL ANIMATION ===========*/
-  const revealObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('reveal--visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
 
-  // This will automatically include education tiles and work items with .reveal class
+  /*=========== 3. BOOTSTRAP NAVBAR AUTO COLLAPSE ON LINK CLICK (MOBILE UX) ===========*/
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+      const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+      if (bsCollapse && window.getComputedStyle(navbarCollapse).display !== 'none') {
+        bsCollapse.hide();
+      }
+    });
+  });
+
+
+  /*=========== 4. SCROLL-REVEAL ANIMATIONS (INTERSECTION OBSERVER) ===========*/
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal--visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  /*=========== 4. SKILL-BAR FILL ANIMATION ===========*/
-  const skillObserver = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bar = entry.target;
-          bar.style.width = bar.dataset.progress + '%';
-          skillObserver.unobserve(bar);
-        }
-      });
-    },
-    { threshold: 0.3 }
-  );
 
+  /*=========== 5. SKILL-BAR FILL ANIMATIONS ===========*/
+  const skillObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        bar.style.width = bar.dataset.progress + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
   document.querySelectorAll('.skill__bar-fill').forEach(bar => skillObserver.observe(bar));
 
-  /*=========== 5. BACK-TO-TOP BUTTON ===========*/
+
+  function updateScrollArrows() {
+    // Project horizontal scroll arrows
+    const projectsGrid = document.querySelector('.projects-grid');
+    const projectsLeftArrow = document.querySelector('.projects-wrapper .scroll-arrow-left');
+    const projectsRightArrow = document.querySelector('.projects-wrapper .scroll-arrow-right');
+  
+    if (projectsGrid && projectsLeftArrow && projectsRightArrow) {
+      const atStart = projectsGrid.scrollLeft <= 10;
+      const atEnd = projectsGrid.scrollLeft >= projectsGrid.scrollWidth - projectsGrid.clientWidth - 10;
+  
+      projectsLeftArrow.disabled = atStart;
+      projectsRightArrow.disabled = atEnd;
+  
+      projectsLeftArrow.style.opacity = atStart ? '0.3' : '1';
+      projectsRightArrow.style.opacity = atEnd ? '0.3' : '1';
+    }
+  
+    // Skills horizontal scroll arrows
+    const skillsGrid = document.querySelector('.skills-grid');
+    const skillsLeftArrow = document.querySelector('.skills-wrapper .scroll-arrow-left');
+    const skillsRightArrow = document.querySelector('.skills-wrapper .scroll-arrow-right');
+  
+    if (skillsGrid && skillsLeftArrow && skillsRightArrow) {
+      const atStart = skillsGrid.scrollLeft <= 10;
+      const atEnd = skillsGrid.scrollLeft >= skillsGrid.scrollWidth - skillsGrid.clientWidth - 10;
+  
+      skillsLeftArrow.disabled = atStart;
+      skillsRightArrow.disabled = atEnd;
+  
+      skillsLeftArrow.style.opacity = atStart ? '0.3' : '1';
+      skillsRightArrow.style.opacity = atEnd ? '0.3' : '1';
+    }
+  }
+  
+  // Add debouncing to prevent flooding scroll events
+  function debounce(fn, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn.apply(this, args), wait);
+    };
+  }
+  const debouncedUpdateScrollArrows = debounce(updateScrollArrows, 100);
+  document.querySelector('.projects-grid')?.addEventListener('scroll', debouncedUpdateScrollArrows);
+  document.querySelector('.skills-grid')?.addEventListener('scroll', debouncedUpdateScrollArrows);
+  // Initial arrow update
+  setTimeout(updateScrollArrows, 200);
+
+
+  /*=========== 8. TOUCH/SWIPE SUPPORT FOR MOBILE ===========*/
+  function addTouchSupport(container) {
+    let startX = 0;
+    let scrollLeft = 0;
+    let isDown = false;
+
+    container.addEventListener('touchstart', e => {
+      isDown = true;
+      startX = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener('touchmove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.touches[0].pageX - container.offsetLeft;
+      container.scrollLeft = scrollLeft - (x - startX)*1.5;
+    }, { passive: false });
+
+    container.addEventListener('touchend', () => {
+      isDown = false;
+    });
+  }
+
+  addTouchSupport(document.querySelector('.projects-grid'));
+  addTouchSupport(document.querySelector('.skills-grid'));
+
+
+  /*=========== 9. KEYBOARD NAVIGATION FOR HORIZONTAL SCROLL ===========*/
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      const active = document.activeElement.closest('.projects-grid, .skills-grid');
+      if (active) {
+        e.preventDefault();
+        if (active.classList.contains('projects-grid')) {
+          window.scrollProjects(e.key === 'ArrowLeft' ? 'left' : 'right');
+        } else if (active.classList.contains('skills-grid')) {
+          window.scrollSkills(e.key === 'ArrowLeft' ? 'left' : 'right');
+        }
+      }
+    }
+  });
+
+
+  /*=========== 10. BACK TO TOP BUTTON ===========*/
   const toTopBtn = document.querySelector('.to-top');
   if (toTopBtn) {
     window.addEventListener('scroll', () => {
       toTopBtn.classList.toggle('to-top--visible', window.scrollY > 600);
     });
-    toTopBtn.addEventListener('click', () =>
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    );
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
-  /*=========== 6. CONTACT-FORM VALIDATION ===========*/
+
+  /*=========== 11. CONTACT FORM VALIDATION ===========*/
   const contactForm = document.querySelector('#contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', e => {
@@ -90,291 +194,97 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Please complete all fields before submitting.');
         return;
       }
-      
-      // Basic email validation
+
+      // Basic email format validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email.value.trim())) {
         e.preventDefault();
         alert('Please enter a valid email address.');
         return;
       }
-      
-      // If form is valid, show success message (you can replace this with actual form submission)
+
+      // Simulate success behavior (replace with actual submission logic)
       e.preventDefault();
       alert('Thank you for your message! I will get back to you soon.');
       contactForm.reset();
     });
   }
 
-  /*=========== 7. HORIZONTAL SCROLL NAVIGATION ===========*/
-  // Projects horizontal scroll
-  window.scrollProjects = function(direction) {
-    const projectsGrid = document.querySelector('.projects-grid');
-    if (projectsGrid) {
-      const scrollAmount = 300;
-      const currentScroll = projectsGrid.scrollLeft;
-      
-      if (direction === 'left') {
-        projectsGrid.scrollTo({
-          left: currentScroll - scrollAmount,
-          behavior: 'smooth'
-        });
-      } else {
-        projectsGrid.scrollTo({
-          left: currentScroll + scrollAmount,
-          behavior: 'smooth'
-        });
-      }
-    }
-  };
 
-  // Skills horizontal scroll
-  window.scrollSkills = function(direction) {
-    const skillsGrid = document.querySelector('.skills-grid');
-    if (skillsGrid) {
-      const scrollAmount = 260;
-      const currentScroll = skillsGrid.scrollLeft;
-      
-      if (direction === 'left') {
-        skillsGrid.scrollTo({
-          left: currentScroll - scrollAmount,
-          behavior: 'smooth'
-        });
-      } else {
-        skillsGrid.scrollTo({
-          left: currentScroll + scrollAmount,
-          behavior: 'smooth'
-        });
-      }
-    }
-  };
-
-  /*=========== 8. SCROLL ARROW VISIBILITY ===========*/
-  function updateScrollArrows() {
-    // Projects arrows
-    const projectsGrid = document.querySelector('.projects-grid');
-    const projectsLeftArrow = document.querySelector('.projects-wrapper .scroll-arrow-left');
-    const projectsRightArrow = document.querySelector('.projects-wrapper .scroll-arrow-right');
-    
-    if (projectsGrid && projectsLeftArrow && projectsRightArrow) {
-      const isAtStart = projectsGrid.scrollLeft <= 10;
-      const isAtEnd = projectsGrid.scrollLeft >= (projectsGrid.scrollWidth - projectsGrid.clientWidth - 10);
-      
-      projectsLeftArrow.style.opacity = isAtStart ? '0.3' : '1';
-      projectsRightArrow.style.opacity = isAtEnd ? '0.3' : '1';
-      projectsLeftArrow.disabled = isAtStart;
-      projectsRightArrow.disabled = isAtEnd;
-    }
-
-    // Skills arrows
-    const skillsGrid = document.querySelector('.skills-grid');
-    const skillsLeftArrow = document.querySelector('.skills-wrapper .scroll-arrow-left');
-    const skillsRightArrow = document.querySelector('.skills-wrapper .scroll-arrow-right');
-    
-    if (skillsGrid && skillsLeftArrow && skillsRightArrow) {
-      const isAtStart = skillsGrid.scrollLeft <= 10;
-      const isAtEnd = skillsGrid.scrollLeft >= (skillsGrid.scrollWidth - skillsGrid.clientWidth - 10);
-      
-      skillsLeftArrow.style.opacity = isAtStart ? '0.3' : '1';
-      skillsRightArrow.style.opacity = isAtEnd ? '0.3' : '1';
-      skillsLeftArrow.disabled = isAtStart;
-      skillsRightArrow.disabled = isAtEnd;
-    }
-  }
-
-  // Update arrow visibility on scroll
-  document.querySelector('.projects-grid')?.addEventListener('scroll', updateScrollArrows);
-  document.querySelector('.skills-grid')?.addEventListener('scroll', updateScrollArrows);
-
-  // Initial arrow state
-  setTimeout(updateScrollArrows, 100);
-
-  /*=========== 9. TOUCH/SWIPE SUPPORT FOR MOBILE ===========*/
-  function addTouchSupport(element) {
-    let startX = 0;
-    let scrollLeft = 0;
-    let isDown = false;
-
-    element.addEventListener('touchstart', e => {
-      isDown = true;
-      startX = e.touches[0].pageX - element.offsetLeft;
-      scrollLeft = element.scrollLeft;
-    });
-
-    element.addEventListener('touchmove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.touches[0].pageX - element.offsetLeft;
-      const walk = (x - startX) * 2;
-      element.scrollLeft = scrollLeft - walk;
-    });
-
-    element.addEventListener('touchend', () => {
-      isDown = false;
-    });
-  }
-
-  // Apply touch support to horizontal scroll containers
-  const projectsGrid = document.querySelector('.projects-grid');
-  const skillsGrid = document.querySelector('.skills-grid');
-  
-  if (projectsGrid) addTouchSupport(projectsGrid);
-  if (skillsGrid) addTouchSupport(skillsGrid);
-
-  /*=========== 10. KEYBOARD NAVIGATION ===========*/
-  document.addEventListener('keydown', e => {
-    // Arrow key navigation for horizontal scroll sections
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      const activeElement = document.activeElement;
-      
-      if (activeElement.closest('.projects-grid')) {
-        e.preventDefault();
-        scrollProjects(e.key === 'ArrowLeft' ? 'left' : 'right');
-      } else if (activeElement.closest('.skills-grid')) {
-        e.preventDefault();
-        scrollSkills(e.key === 'ArrowLeft' ? 'left' : 'right');
-      }
-    }
-  });
-
-  /*=========== 11. NAVBAR SCROLL EFFECT ===========*/
-  const navbar = document.querySelector('.navbar');
-  let lastScrollTop = 0;
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Add background on scroll
-    if (scrollTop > 100) {
-      navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-      navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
-    } else {
-      navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  }, false);
-
-  /*=========== 12. LAZY LOADING FOR IMAGES ===========*/
-  const imageObserver = new IntersectionObserver((entries, observer) => {
+  /*=========== 12. LAZY LOADING FOR IMAGES (optional: use data-src) ===========*/
+  const lazyObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target;
-        img.src = img.dataset.src || img.src;
-        img.classList.remove('lazy');
+        
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        
         observer.unobserve(img);
       }
     });
   });
+  document.querySelectorAll('img[data-src]').forEach(img => lazyObserver.observe(img));
 
-  document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
-  });
 
-  /*=========== 13. LOGO LOADING ENHANCEMENT ===========*/
-  // Add loading states for education and company logos
+  /*=========== 13. LOGO LOAD AND ERROR HANDLING ===========*/
   document.querySelectorAll('.institution-logo, .company-logo, .skill-logo').forEach(logo => {
+    logo.style.opacity = '0';
+    logo.style.transform = 'scale(0.9)';
+    logo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
     logo.addEventListener('load', () => {
       logo.style.opacity = '1';
       logo.style.transform = 'scale(1)';
     });
-    
+
     logo.addEventListener('error', () => {
-      // Set a default placeholder if logo fails to load
       logo.style.background = '#f0f0f0';
       logo.style.border = '2px solid #ddd';
       logo.alt = 'Logo not available';
+      logo.style.opacity = '1';
+      logo.style.transform = 'scale(1)';
     });
-
-    // Initial state for smooth loading animation
-    logo.style.opacity = '0';
-    logo.style.transform = 'scale(0.8)';
-    logo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
   });
 
-  /*=========== 14. TYPING ANIMATION (OPTIONAL) ===========*/
-  const typewriterText = document.querySelector('.hero-text h1');
-  if (typewriterText) {
-    const originalText = typewriterText.textContent;
-    typewriterText.textContent = '';
-    
+
+  /*=========== 14. TYPING ANIMATION FOR HERO HEADING ===========*/
+  const typingEl = document.querySelector('.hero-text h1, .typing-text');
+  if (typingEl) {
+    const originalText = typingEl.textContent.trim();
+    typingEl.textContent = '';
     let i = 0;
-    const typeWriter = () => {
+    function type() {
       if (i < originalText.length) {
-        typewriterText.textContent += originalText.charAt(i);
+        typingEl.textContent += originalText.charAt(i);
         i++;
-        setTimeout(typeWriter, 100);
+        setTimeout(type, 100);
       }
-    };
-    
-    // Start typing animation after a delay
-    setTimeout(typeWriter, 1000);
+    }
+    setTimeout(type, 600);
   }
 
-  /*=========== 15. PERFORMANCE OPTIMIZATIONS ===========*/
-  // Debounce scroll events
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
 
-  // Apply debouncing to scroll-intensive functions
-  const debouncedUpdateArrows = debounce(updateScrollArrows, 100);
-  document.querySelector('.projects-grid')?.addEventListener('scroll', debouncedUpdateArrows);
-  document.querySelector('.skills-grid')?.addEventListener('scroll', debouncedUpdateArrows);
-
-  /*=========== 16. ERROR HANDLING ===========*/
-  window.addEventListener('error', e => {
-    console.warn('Portfolio Error:', e.error);
-    // Graceful degradation - don't show errors to users
+  /*=========== 15. NAVBAR SCROLL EFFECT ===========*/
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      navbar.style.background = 'rgba(255,255,255,0.98)';
+      navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
+    } else {
+      navbar.style.background = 'rgba(255,255,255,0.95)';
+      navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+    }
   });
 
-  // Handle promise rejections
+
+  /*=========== 16. ERROR HANDLING (optional) ===========*/
+  window.addEventListener('error', e => console.warn('Portfolio Error:', e.error));
   window.addEventListener('unhandledrejection', e => {
-    console.warn('Portfolio Promise Rejection:', e.reason);
+    console.warn('Unhandled Promise Rejection:', e.reason);
     e.preventDefault();
   });
 
-  /*=========== 17. INITIALIZATION COMPLETE ===========*/
-  console.log('Lavanya R Portfolio - Fully Loaded');
-  
-  // Trigger initial animations
-  document.body.classList.add('loaded');
-  
-  // Final setup
-  setTimeout(() => {
-    updateScrollArrows();
-    // Trigger any remaining reveal animations
-    document.querySelectorAll('.reveal:not(.reveal--visible)').forEach(el => {
-      if (isElementInViewport(el)) {
-        el.classList.add('reveal--visible');
-      }
-    });
-  }, 500);
 });
-
-/*=========== UTILITY FUNCTIONS ===========*/
-function isElementInViewport(el) {
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-// Export functions for global access
-window.portfolioUtils = {
-  scrollProjects: window.scrollProjects,
-  scrollSkills: window.scrollSkills,
-  isElementInViewport
-};

@@ -1,334 +1,342 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavanya R - Professional Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lavanya R – Professional Portfolio</title>
+
+ <!-- ✅ Correct Bootstrap 5.3.3 CSS -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+crossorigin="anonymous"
+/>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">Lavanya R</a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+      <a class="nav-link" href="#home">Lavanya R</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto d-flex flex-row gap-3">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" class="btn btn-outline-secondary ms-3" aria-label="Toggle dark/light mode">🌓</button>
+      </div>
+    </div>
+  </nav>
+  
+
+  <!-- Hero Section -->
+  <section id="home" class="hero d-flex align-items-center">
+    <div class="hero-bg-overlay"></div>
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+          <h1 class="typing-text display-4">Lavanya R</h1>
+          <p class="lead text-primary">MCA Graduate</p>
+          <p>Innovative and adaptable professional with hands-on experience in web and AI-driven applications. Currently excelling as a Process Associate, recognized for teamwork, resilience, and efficient problem-solving.</p>
+          <a href="#contact" class="btn btn-primary">Get In Touch</a>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Lavanya R</h1>
-                    <p class="subtitle">MCA Graduate</p>
-                    <p>Innovative and adaptable professional with hands-on experience in web and AI-driven applications. Currently excelling as a Process Associate, recognized for teamwork, resilience, and efficient problem-solving.</p>
-                    <a href="#contact" class="cta-button">Get In Touch</a>
-                </div>
-                <div class="hero-image">
-                    <img src="assets\images\profile image.jpg" alt="Lavanya R" class="profile-photo">
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <div class="scroll-arrow">↓</div>
-            </div>
+        <div class="col-md-6 text-center">
+          <img src="assets/images/profile image.jpg" alt="Lavanya R" class="img-fluid rounded-circle border border-primary shadow profile-photo">
         </div>
-    </section>
+      </div>
+      <div class="text-center mt-4 scroll-indicator">
+        <div class="scroll-arrow fs-1 text-primary">↓</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <h2 class="section-title reveal">Education</h2>
-            <div class="education-list">
-                
-                <div class="education-item reveal">
-                    <div class="education-header">
-                        <img src="assets\edu\PES.jpg" alt="PES College of Engineering" class="institution-logo">
-                        <div class="education-info">
-                            <h3 class="education-title">Master of Computer Applications</h3>
-                            <div class="institution-name">PES College of Engineering, Mandya</div>
-                            <div class="education-period">— | 7.79 CGPA</div>
-                        </div>
-                    </div>
-                    <div class="education-description">
-                        <p>Comprehensive program covering advanced computer applications, software development, database management, and emerging technologies in computing.</p>
-                    </div>
-                </div>
-
-                <div class="education-item reveal">
-                    <div class="education-header">
-                        <img src="assets\edu\VVET.jpg" alt="Vidya Vikas First Grade College" class="institution-logo">
-                        <div class="education-info">
-                            <h3 class="education-title">Bachelor of Computer Applications</h3>
-                            <div class="institution-name">Vidya Vikas First Grade College</div>
-                            <div class="education-period">Jun 2018 – Sep 2021 | 7.545 CGPA</div>
-                        </div>
-                    </div>
-                    <div class="education-description">
-                        <p>Three-year undergraduate program focused on computer programming, software development, web technologies, and database management systems.</p>
-                    </div>
-                </div>
-
-                <div class="education-item reveal">
-                    <div class="education-header">
-                        <img src="assets\edu\TPUC.jpg" alt="Teresian Women's PU College" class="institution-logo">
-                        <div class="education-info">
-                            <h3 class="education-title">Pre-University (PUC)</h3>
-                            <div class="institution-name">Teresian Women's PU College</div>
-                            <div class="education-period">2018 | 63.66%</div>
-                        </div>
-                    </div>
-                    <div class="education-description">
-                        <p>Pre-university education with focus on Mathematics, Physics, Chemistry, and Computer Science, providing strong foundation for technical studies.</p>
-                    </div>
-                </div>
-
-                <div class="education-item reveal">
-                    <div class="education-header">
-                        <img src="assets\edu\TCGHS.jpg" alt="Teresian Convent Girls High School" class="institution-logo">
-                        <div class="education-info">
-                            <h3 class="education-title">SSLC</h3>
-                            <div class="institution-name">Teresian Convent Girls High School</div>
-                            <div class="education-period">2016 | 81.44%</div>
-                        </div>
-                    </div>
-                    <div class="education-description">
-                        <p>Secondary School Leaving Certificate with excellent performance across all subjects, demonstrating strong academic foundation.</p>
-                    </div>
-                </div>
-
+  <!-- Education Section -->
+  <section id="education" class="education py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Education</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm education-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/edu/PES.jpg" alt="PES College" class="institution-logo me-3">
+              <div>
+                <h5 class="card-title text-primary">Master of Computer Applications</h5>
+                <h6 class="card-subtitle mb-2 text-muted">PES College of Engineering, Mandya</h6>
+                <p class="card-text">— | 7.79 CGPA</p>
+                <p class="education-description mb-0">Comprehensive program covering advanced computer applications, software development, database management, and emerging technologies in computing.</p>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Work Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title reveal">Work Experience</h2>
-            <div class="experience-list">
-                
-                <div class="work-item reveal">
-                    <div class="work-header">
-                        <img src="assets\images\company.jpeg" alt="Lantern Globe" class="company-logo">
-                        <div class="work-info">
-                            <h3 class="work-title">Process Associate</h3>
-                            <div class="work-company">Lantern Globe</div>
-                            <div class="work-period">Jan 2025 – Present</div>
-                        </div>
-                    </div>
-                    <div class="work-description">
-                        <ul>
-                            <li>Managed and improved core business processes to enhance operational efficiency</li>
-                            <li>Provided proactive customer support within a collaborative team environment</li>
-                            <li>Demonstrated adaptability and reliability under dynamic workloads</li>
-                        </ul>
-                    </div>
-                </div>
-
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm education-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/edu/VVET.jpg" alt="Vidya Vikas College" class="institution-logo me-3">
+              <div>
+                <h5 class="card-title text-primary">Bachelor of Computer Applications</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Vidya Vikas First Grade College</h6>
+                <p class="card-text">Jun 2018 – Sep 2021 | 7.545 CGPA</p>
+                <p class="education-description mb-0">Three-year undergraduate program focused on computer programming, software development, web technologies, and database management systems.</p>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title reveal">Projects</h2>
-            <div class="projects-wrapper">
-                <button class="scroll-arrow scroll-arrow-left" onclick="scrollProjects('left')">‹</button>
-                <div class="projects-grid horizontal-scroll">
-                    
-                   <div class="project-card reveal">
-                        <img src="assets\projects\ai.png" alt="AI Smart Event Manager" class="project-image">
-                        <div class="project-content">
-                            <h3 class="project-title">AI-Smart-Event Manager</h3>
-                            <p class="project-period">Present</p>
-                            <p class="project-description">Building an AI-driven platform to automate event planning, scheduling, resource allocation, and coordination.</p>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                        <img src="assets\projects\scm.png" alt="Smart College Management" class="project-image">
-                        <div class="project-content">
-                            <h3 class="project-title">Smart College Management with Social Networking</h3>
-                            <p class="project-period">Apr 2023 – Jul 2023</p>
-                            <p class="project-description">Created a web-based solution for college administration and digital campus engagement.</p>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                        <img src="assets\projects\sap.jpg" alt="Student Activity Prediction" class="project-image">
-                        <div class="project-content">
-                            <h3 class="project-title">Student Activity Prediction</h3>
-                            <p class="project-period">2023</p>
-                            <p class="project-description">Mini project using machine learning to predict student participation in academic and extracurricular activities.</p>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                        <img src="assets\projects\detection.jpg" alt="Social Distancing and Face Detection" class="project-image">
-                        <div class="project-content">
-                            <h3 class="project-title">Social Distancing and Face Detection Mask</h3>
-                            <p class="project-period">Mar 2021 – Jul 2021</p>
-                            <p class="project-description">Computer vision project to monitor social distancing and mask use during COVID-19.</p>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal">
-                      <img src="assets\projects\expense tracker.png" alt="Smart Expense Tracker" class="project-image">
-                      <div class="project-content">
-                          <h3 class="project-title">Smart Expense Tracker</h3>
-                          <p class="project-period">Apr 2025 – Jun 2025</p>
-                          <p class="project-description">Developed a responsive web application for personal finance: real-time tracking, expense categorization, budget management, and monthly analytics for better decision-making.</p>
-                      </div>
-                  </div>
-
-                </div>
-                <button class="scroll-arrow scroll-arrow-right" onclick="scrollProjects('right')">›</button>
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm education-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/edu/TPUC.jpg" alt="Teresian PU College" class="institution-logo me-3">
+              <div>
+                <h5 class="card-title text-primary">Pre-University (PUC)</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Teresian Women's PU College</h6>
+                <p class="card-text">2018 | 63.66%</p>
+                <p class="education-description mb-0">Pre-university education with focus on Mathematics, Physics, Chemistry, and Computer Science, providing strong foundation for technical studies.</p>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title reveal">Technical Skills</h2>
-            <div class="skills-wrapper">
-                <button class="scroll-arrow scroll-arrow-left" onclick="scrollSkills('left')">‹</button>
-                <div class="skills-grid horizontal-scroll">
-                    
-                    <div class="skill-item reveal">
-                        <div class="skill-header">
-                            <img src="assets\logos\msoffice.jpeg" alt="Microsoft" class="skill-logo">
-                            <div>
-                                <div class="skill-name">Microsoft Applications</div>
-                                <div class="skill-level">Expert</div>
-                            </div>
-                        </div>
-                        <div class="skill__bar">
-                            <div class="skill__bar-fill" data-progress="95"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item reveal">
-                        <div class="skill-header">
-                            <img src="assets\logos\python.jpeg" alt="Python" class="skill-logo">
-                            <div>
-                                <div class="skill-name">Python</div>
-                                <div class="skill-level">Intermediate</div>
-                            </div>
-                        </div>
-                        <div class="skill__bar">
-                            <div class="skill__bar-fill" data-progress="75"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item reveal">
-                        <div class="skill-header">
-                            <img src="assets\logos\hcj.jpg" alt="HTML & CSS" class="skill-logo">
-                            <div>
-                                <div class="skill-name">HTML,CSS & JS</div>
-                                <div class="skill-level">Intermediate</div>
-                            </div>
-                        </div>
-                        <div class="skill__bar">
-                            <div class="skill__bar-fill" data-progress="80"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item reveal">
-                        <div class="skill-header">
-                            <img src="assets\logos\angular js.png" alt="AngularJS" class="skill-logo">
-                            <div>
-                                <div class="skill-name">AngularJS</div>
-                                <div class="skill-level">Beginner</div>
-                            </div>
-                        </div>
-                        <div class="skill__bar">
-                            <div class="skill__bar-fill" data-progress="50"></div>
-                        </div>
-                    </div>
-
-                    <div class="skill-item reveal">
-                      <div class="skill-header">
-                          <img src="assets\logos\reactjs.png" alt="AngularJS" class="skill-logo">
-                          <div>
-                              <div class="skill-name">ReactJS</div>
-                              <div class="skill-level">Beginner</div>
-                          </div>
-                      </div>
-                      <div class="skill__bar">
-                          <div class="skill__bar-fill" data-progress="50"></div>
-                      </div>
-                  </div>
-
-                </div>
-                <button class="scroll-arrow scroll-arrow-right" onclick="scrollSkills('right')">›</button>
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm education-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/edu/TCGHS.jpg" alt="Teresian High School" class="institution-logo me-3">
+              <div>
+                <h5 class="card-title text-primary">SSLC</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Teresian Convent Girls High School</h6>
+                <p class="card-text">2016 | 81.44%</p>
+                <p class="education-description mb-0">Secondary School Leaving Certificate with excellent performance across all subjects, demonstrating strong academic foundation.</p>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item">
-                        <strong>Email:</strong> lavanyaaram10@gmail.com
-                    </div>
-                    <div class="contact-item">
-                      <a href="https://www.linkedin.com/in/lavanya-ram-0b3387219">LinkedIn</a>
-                      <a href="https://github.com/Lavanyaram10">GitHub</a>
-                  </div>
-                    <div class="contact-item">
-                        <strong>Location:</strong> Mandya, Karnataka
-                    </div>
-                </div>
-                <form id="contact-form" name="contact" method="POST" action="https://formspree.io/f/xpwllwzw">
-                  <input type="hidden" name="form-name" value="contact">
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                  </div>
-                  <button type="submit" class="submit-btn">Send Message</button>
-                </form>
+  <!-- Work Experience Section -->
+  <section id="experience" class="experience py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-5">Work Experience</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card h-100 shadow-sm work-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/images/company.jpeg" alt="Lantern Globe" class="company-logo me-3">
+              <div>
+                <h5 class="card-title text-primary">Process Associate</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Lantern Globe</h6>
+                <p class="card-text">Jan 2025 – Present</p>
+                <ul class="work-description mb-0">
+                  <li>Managed and improved core business processes to enhance operational efficiency</li>
+                  <li>Provided proactive customer support within a collaborative team environment</li>
+                  <li>Demonstrated adaptability and reliability under dynamic workloads</li>
+                </ul>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Lavanya R. All rights reserved.</p>
+  <!-- Projects Section -->
+  <section id="projects" class="projects py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-4">Projects</h2>
+      <div class="overflow-auto">
+        <div class="d-flex gap-4 horizontal-scroll">
+          <div class="card project-card reveal">
+            <img src="assets/projects/ai.png" class="card-img-top project-image" alt="AI Smart Event Manager">
+            <div class="card-body">
+              <h5 class="card-title text-primary">AI-Smart-Event Manager</h5>
+              <p class="card-subtitle mb-2 text-muted">Present</p>
+              <p class="card-text">Building an AI-driven platform to automate event planning, scheduling, resource allocation, and coordination.</p>
+            </div>
+          </div>
+          <div class="card project-card reveal">
+            <img src="assets/projects/expense tracker.png" class="card-img-top project-image" alt="Smart Expense Tracker">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Smart Expense Tracker</h5>
+              <p class="card-subtitle mb-2 text-muted">Apr 2025 – Jun 2025</p>
+              <p class="card-text">Developed a responsive web application for personal finance: real-time tracking, expense categorization, budget management, and monthly analytics.</p>
+            </div>
+          </div>
+          <div class="card project-card reveal">
+            <img src="assets/projects/scm.png" class="card-img-top project-image" alt="Smart College Management">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Smart College Management w/ Social Networking</h5>
+              <p class="card-subtitle mb-2 text-muted">Apr 2023 – Jul 2023</p>
+              <p class="card-text">Created a web-based solution for college administration and digital campus engagement.</p>
+            </div>
+          </div>
+          <div class="card project-card reveal">
+            <img src="assets/projects/sap.jpg" class="card-img-top project-image" alt="Student Activity Prediction">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Student Activity Prediction</h5>
+              <p class="card-subtitle mb-2 text-muted">2023</p>
+              <p class="card-text">Mini project using machine learning to predict student participation in academic and extracurricular activities.</p>
+            </div>
+          </div>
+          <div class="card project-card reveal">
+            <img src="assets/projects/detection.jpg" class="card-img-top project-image" alt="Social Distancing and Face Detection">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Social Distancing & Face Detection Mask</h5>
+              <p class="card-subtitle mb-2 text-muted">Mar 2021 – Jul 2021</p>
+              <p class="card-text">Computer vision project to monitor social distancing and mask use during COVID-19.</p>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- Back to Top Button -->
-    <button class="to-top" id="toTopBtn">↑</button>
+  <!-- Skills Section -->
+  <section id="skills" class="skills py-5">
+    <div class="container">
+      <h2 class="section-title text-center mb-4">Technical Skills</h2>
+      <div class="overflow-auto">
+        <div class="d-flex gap-4 horizontal-scroll">
+          <div class="card skill-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/logos/msoffice.jpeg" alt="Microsoft" class="skill-logo">
+              <div>
+                <h6 class="skill-name mb-1">Microsoft Applications</h6>
+                <div class="skill-level">Expert</div>
+              </div>
+            </div>
+            <div class="skill__bar bg-secondary">
+              <div class="skill__bar-fill" data-progress="95"></div>
+            </div>
+          </div>
+          <div class="card skill-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/logos/python.jpeg" alt="Python" class="skill-logo">
+              <div>
+                <h6 class="skill-name mb-1">Python</h6>
+                <div class="skill-level">Intermediate</div>
+              </div>
+            </div>
+            <div class="skill__bar bg-secondary">
+              <div class="skill__bar-fill" data-progress="75"></div>
+            </div>
+          </div>
+          <div class="card skill-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/logos/hcj.jpg" alt="HTML & CSS" class="skill-logo">
+              <div>
+                <h6 class="skill-name mb-1">HTML, CSS & JS</h6>
+                <div class="skill-level">Intermediate</div>
+              </div>
+            </div>
+            <div class="skill__bar bg-secondary">
+              <div class="skill__bar-fill" data-progress="80"></div>
+            </div>
+          </div>
+          <div class="card skill-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/logos/angular js.png" alt="AngularJS" class="skill-logo">
+              <div>
+                <h6 class="skill-name mb-1">AngularJS</h6>
+                <div class="skill-level">Beginner</div>
+              </div>
+            </div>
+            <div class="skill__bar bg-secondary">
+              <div class="skill__bar-fill" data-progress="50"></div>
+            </div>
+          </div>
+          <div class="card skill-item reveal">
+            <div class="card-body d-flex align-items-center">
+              <img src="assets/logos/reactjs.png" alt="ReactJS" class="skill-logo">
+              <div>
+                <h6 class="skill-name mb-1">ReactJS</h6>
+                <div class="skill-level">Beginner</div>
+              </div>
+            </div>
+            <div class="skill__bar bg-secondary">
+              <div class="skill__bar-fill" data-progress="50"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Contact Section -->
+  <section id="contact" class="contact py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title text-center mb-4">Get In Touch</h2>
+      <div class="row">
+        <div class="col-lg-5 mb-4">
+          <h5>Contact Information</h5>
+          <div class="contact-item d-flex align-items-center mb-3">
+            <img src="assets\images\mail.gif" alt="Mail Icon" class="gif-icon">
+            <span>lavanyaaram10@gmail.com</span>
+          </div>
+          <div class="contact-item d-flex align-items-center mb-3">
+            <img src="assets\images\location.gif" alt="Location Icon" class="gif-icon">
+            <span>Mandya, Karnataka</span>
+          </div>
+          <div class="contact-item d-flex gap-3">
+            <a href="https://www.linkedin.com/in/lavanya-ram-0b3387219" target="_blank" class="d-flex align-items-center">
+              <img src="assets\images\linkedin.png" alt="LinkedIn" class="social-icon">LinkedIn
+            </a>
+            <a href="https://github.com/Lavanyaram10" target="_blank" class="d-flex align-items-center">
+              <img src="assets\images\github.png" alt="GitHub" class="social-icon">GitHub
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <form id="contact-form" name="contact" class="needs-validation" novalidate method="POST" action="https://formspree.io/f/xpwllwzw">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-control" required>
+              <div class="invalid-feedback">Name is required.</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+              <div class="invalid-feedback">Valid email is required.</div>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+              <div class="invalid-feedback">Message cannot be empty.</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white text-center py-3">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 Lavanya R. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="to-top btn btn-primary" id="toTopBtn" aria-label="Back to top">↑</button>
+
+ <!-- ✅ Bootstrap 5.3.3 JavaScript -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-HoA/X+LbGtU/1N9Y+WzB1FhLZDP58ZnB7dABhG7YVwIczL3h/j0F2HtGaa3P8v9g"
+crossorigin="anonymous"
+></script>
+
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
 </body>
 </html>
