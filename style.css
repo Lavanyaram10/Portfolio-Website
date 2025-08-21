@@ -883,7 +883,7 @@ a:hover { color: var(--color-primary-hover); }
   min-height: 100vh; 
   display: flex; 
   align-items: center; 
-  background:url('assets/images/bg.jpeg') center/cover no-repeat;
+  background:url('assets/images/pbg.jpeg') center/cover no-repeat;
   background-attachment: fixed;
 }
 
