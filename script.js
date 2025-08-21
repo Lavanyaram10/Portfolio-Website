@@ -428,94 +428,211 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(type, startDelay);
   }
 
-  /*=========== 15. THEME INTEGRATION ===========*/
-  // Listen for theme changes from theme manager
-  window.addEventListener('themechange', (e) => {
-    const { theme, isDark } = e.detail;
-    
-    // Update any theme-dependent elements
-    updateThemeDependentElements(isDark);
-    
-    // Analytics or additional theme-specific logic
-    console.log(`Theme changed to: ${theme}`);
-  });
-
-  function updateThemeDependentElements(isDark) {
-    // Update navbar if needed
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-      navbar.style.transition = 'all 0.3s ease';
+ // Immediate theme functionality - works on mobile and desktop
+ (function() {
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  // Theme configuration
+  const themes = ['light', 'dark', 'auto'];
+  let currentThemeIndex = 0;
+  
+  // Load saved theme or default to auto
+  const savedTheme = localStorage.getItem('portfolio-theme') || 'auto';
+  currentThemeIndex = themes.indexOf(savedTheme);
+  if (currentThemeIndex === -1) currentThemeIndex = 2; // default to auto
+  
+  // Theme icons
+  const themeIcons = {
+    light: 'fas fa-sun',
+    dark: 'fas fa-moon', 
+    auto: 'fas fa-adjust'
+  };
+  
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    // Update meta theme-color to match
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.name = 'theme-color';
+      document.head.appendChild(metaThemeColor);
     }
-
-    // Update any custom elements that need theme-specific behavior
-    document.querySelectorAll('.card, .project-card, .skill-item').forEach(card => {
-      card.style.transition = 'all 0.3s ease';
-    });
+    if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      metaThemeColor.content = '#160303';
+    } else {
+      metaThemeColor.content = '#fcfcf9';
+    }
+    // Update icon class to show correct icon
+    const themeIcons = {
+      light: 'fas fa-sun',
+      dark: 'fas fa-moon',
+      auto: 'fas fa-adjust'
+    };
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.className = themeIcons[theme] || 'fas fa-adjust';
+  
+    // Save preference
+    localStorage.setItem('portfolio-theme', theme);
   }
-
-  /*=========== 16. SIMPLE THEME TOGGLE (FALLBACK) ===========*/
-  function toggleSimpleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  // Show notification (mobile-friendly)
+  function showNotification(message) {
+    // Remove existing notification
+    const existing = document.querySelector('.theme-notification');
+    if (existing) existing.remove();
     
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('simple-theme', newTheme);
-    
-    showNotification(`Switched to ${newTheme} theme`, 'info');
-  }
-
-  /*=========== 17. NOTIFICATION SYSTEM ===========*/
-  function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    document.querySelectorAll('.notification').forEach(n => n.remove());
-
     const notification = document.createElement('div');
-    notification.className = `notification notification--${type}`;
+    notification.className = 'theme-notification';
     notification.style.cssText = `
       position: fixed;
-      top: 20px;
+      top: 80px;
       right: 20px;
-      background: var(--color-surface);
-      color: var(--color-text);
-      padding: 16px 24px;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      border-left: 4px solid var(--color-primary);
-      z-index: 1003;
-      max-width: 350px;
+      background: var(--color-surface, #fff);
+      color: var(--color-text, #333);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 1002;
+      font-size: 14px;
+      border-left: 4px solid var(--color-primary, #21808d);
       opacity: 0;
-      transform: translateX(100%);
+      transform: translateX(100px);
       transition: all 0.3s ease;
+      max-width: 250px;
+      word-wrap: break-word;
     `;
-
-    if (type === 'error') {
-      notification.style.borderLeftColor = '#ef4444';
-    } else if (type === 'success') {
-      notification.style.borderLeftColor = '#22c55e';
+    
+    // Responsive positioning for mobile
+    if (window.innerWidth <= 768) {
+      notification.style.cssText += `
+        top: 70px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        text-align: center;
+        transform: translateY(-100px);
+      `;
     }
-
+    
     notification.textContent = message;
     document.body.appendChild(notification);
-
+    
     // Animate in
     requestAnimationFrame(() => {
       notification.style.opacity = '1';
-      notification.style.transform = 'translateX(0)';
+      if (window.innerWidth <= 768) {
+        notification.style.transform = 'translateY(0)';
+      } else {
+        notification.style.transform = 'translateX(0)';
+      }
     });
-
-    // Auto remove after 4 seconds
+    
+    // Remove after 3 seconds
     setTimeout(() => {
       notification.style.opacity = '0';
-      notification.style.transform = 'translateX(100%)';
+      if (window.innerWidth <= 768) {
+        notification.style.transform = 'translateY(-100px)';
+      } else {
+        notification.style.transform = 'translateX(100px)';
+      }
       setTimeout(() => {
         if (notification.parentNode) {
           notification.remove();
         }
       }, 300);
-    }, 4000);
+    }, 3000);
   }
-
+  
+  // Toggle theme function
+  function toggleTheme() {
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    const newTheme = themes[currentThemeIndex];
+    applyTheme(newTheme);
+    
+    const themeNames = {
+      light: 'Light mode',
+      dark: 'Dark mode',
+      auto: 'Auto mode (follows system)'
+    };
+    
+    showNotification(themeNames[newTheme]);
+    
+    // Add visual feedback for button press (mobile-friendly)
+    if (themeToggle) {
+      themeToggle.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        themeToggle.style.transform = 'scale(1)';
+      }, 150);
+    }
+  }
+  
+  // Initialize theme
+  applyTheme(themes[currentThemeIndex]);
+  
+  // Add click event listener (works on both mobile and desktop)
+  if (themeToggle) {
+    // Remove any existing listeners
+    themeToggle.removeEventListener('click', toggleTheme);
+    
+    // Add click listener with proper mobile support
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleTheme();
+    });
+    
+    // Add touch feedback for mobile
+    themeToggle.addEventListener('touchstart', () => {
+      themeToggle.style.opacity = '0.8';
+    }, { passive: true });
+    
+    themeToggle.addEventListener('touchend', () => {
+      themeToggle.style.opacity = '1';
+    }, { passive: true });
+    
+    // Ensure button has proper styling for touch devices
+    themeToggle.style.cssText += `
+      transition: all 0.3s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      user-select: none;
+    `;
+  }
+  
+  // Listen for system theme changes when in auto mode
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (themes[currentThemeIndex] === 'auto') {
+      applyTheme('auto'); // Reapply auto theme to update colors
+    }
+  });
+  
+  // Handle orientation change on mobile
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      // Reposition notifications if any exist
+      const notification = document.querySelector('.theme-notification');
+      if (notification && window.innerWidth <= 768) {
+        notification.style.left = '10px';
+        notification.style.right = '10px';
+      }
+    }, 100);
+  });
+  
+  // Make functions globally available for debugging
+  window.toggleTheme = toggleTheme;
+  window.setTheme = (theme) => {
+    const index = themes.indexOf(theme);
+    if (index !== -1) {
+      currentThemeIndex = index;
+      applyTheme(theme);
+    }
+  };
+  
+  console.log('Mobile & Desktop theme system ready!');
+  console.log('Available themes: light, dark, auto');
+})();
   /*=========== 18. PERFORMANCE MONITORING ===========*/
   // Monitor performance and log slow operations
   function measurePerformance(name, fn) {

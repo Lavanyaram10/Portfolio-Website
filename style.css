@@ -726,9 +726,28 @@ select.form-control {
   outline-offset: 2px;
 }
 
-/* Dark mode specifics */
-[data-color-scheme="dark"] .btn--outline {
-  border: 1px solid var(--color-border-secondary);
+[data-theme="light"] {
+  --color-background: #fcfcf9;
+  --color-text: #13343b;
+  /* Other light variables */
+}
+
+[data-theme="dark"] {
+  --color-background: #160303;
+  --color-text: #f8f2f2;
+  /* Other dark variables */
+}
+
+[data-theme="auto"] {
+  /* Usually fallback to system preference or default colors */
+  /* Optionally leave unset to let media query handle */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-background: #160303;
+    --color-text: #f8f2f2;
+  }
 }
 
 @font-face {
