@@ -756,7 +756,7 @@ select.form-control {
     format('woff2');
 }
 
-/* END PERPLEXITY DESIGN SYSTEM */
+
 :root {
   /* Remove custom variables since design system provides them */
   color-scheme: light dark;
@@ -883,8 +883,7 @@ a:hover { color: var(--color-primary-hover); }
   min-height: 100vh; 
   display: flex; 
   align-items: center; 
-  background: linear-gradient(135deg, rgba(var(--color-teal-500-rgb), 0.8) 0%, rgba(var(--color-teal-300-rgb), 0.8) 100%),
-              url('assets/images/bg.jpeg') center/cover no-repeat;
+  background:url('assets/images/bg.jpeg') center/cover no-repeat;
   background-attachment: fixed;
 }
 
@@ -1095,8 +1094,7 @@ a:hover { color: var(--color-primary-hover); }
   min-height: 500px; 
   display: flex; 
   align-items: center; 
-  background: linear-gradient(135deg, rgba(var(--color-slate-900-rgb), 0.6) 0%, rgba(var(--color-slate-900-rgb), 0.4) 100%),
-              url('assets/images/bg.jpeg') center/cover no-repeat;
+  background: url('assets/images/bg.jpeg') center/cover no-repeat;
 }
 
 .contact-item { 
